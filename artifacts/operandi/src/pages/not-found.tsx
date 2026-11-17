@@ -1,21 +1,22 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle } from "lucide-react";
+import { Link } from "wouter";
+import { PageShell } from "@/components/PageShell";
+import { Container } from "@/components/Container";
+import { buttonClass } from "@/components/ui-kit";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
+    <PageShell title="Page not found">
+      <section className="pt-40 pb-32">
+        <Container>
+          <div className="text-[12px] font-medium uppercase tracking-wider text-faint mb-4">404</div>
+          <h1 className="font-serif text-[40px] md:text-[56px] font-semibold text-ink leading-tight">This page doesn't exist.</h1>
+          <p className="text-[18px] text-muted mt-4 max-w-[560px]">It may have moved, or the link may be incomplete.</p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <Link href="/" className={buttonClass("primary")}>Back to home</Link>
+            <Link href="/work" className={buttonClass("secondary")}>See our work</Link>
           </div>
-
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+        </Container>
+      </section>
+    </PageShell>
   );
 }

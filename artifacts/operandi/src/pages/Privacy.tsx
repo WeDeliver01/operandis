@@ -2,9 +2,9 @@ import { LegalLayout } from "@/components/LegalLayout";
 
 export default function Privacy() {
   return (
-    <LegalLayout title="Privacy Policy" breadcrumb="PRIVACY" lastUpdated="16 May 2026">
+    <LegalLayout title="Privacy Policy" breadcrumb="PRIVACY" lastUpdated="17 November 2026">
       <p>
-        Operandi ("we", "us", "our") respects your privacy. This policy explains what personal
+        Operandis ("we", "us", "our") respects your privacy. This policy explains what personal
         information we collect when you interact with this website or engage us as a client, how
         we use it, and the rights you have under the South African Protection of Personal
         Information Act, 2013 ("POPIA").
@@ -12,7 +12,7 @@ export default function Privacy() {
 
       <h2>1. Who we are</h2>
       <p>
-        Operandi is the trading name of an independent custom software studio based in Pretoria,
+        Operandis is the trading name of an independent custom software studio based in Pretoria,
         South Africa. For the purposes of POPIA we are the Responsible Party for the personal
         information processed through this website and in the course of our client work.
       </p>
@@ -33,6 +33,24 @@ export default function Privacy() {
         <li>
           <strong>When you book a working session:</strong> your name, email address, company name,
           and the time slot you select.
+        </li>
+        <li>
+          <strong>When you use the project configurator or contact form:</strong> your contact
+          details, your description of the problem you want to solve and your answers about scope,
+          users, integrations, budget and timing. Answers are saved as you go so you can resume
+          later; unsubmitted drafts are deleted automatically after 30 days.
+        </li>
+        <li>
+          <strong>When you create a client portal account or buy online:</strong> your name, email,
+          phone, company and billing details, your sign-in credentials (passwords are stored only as
+          a one-way hash), and records of orders, proposals you accepted, invoices and payments.
+          Card details are entered on our payment provider's pages and never reach us; we receive
+          only the payment reference, amount and outcome.
+        </li>
+        <li>
+          <strong>Files and messages:</strong> documents you upload to the client portal and
+          messages you send to our team about your project, stored privately and shared only with
+          the people working on your project.
         </li>
         <li>
           <strong>When you become a client:</strong> the information necessary to deliver the
@@ -56,7 +74,11 @@ export default function Privacy() {
       <ul>
         <li>to respond to your enquiry;</li>
         <li>to schedule and run a working session;</li>
+        <li>to prepare an indicative assessment of your project and recommend a next step;</li>
         <li>to scope, deliver, support, and invoice for client engagements;</li>
+        <li>to process payments and refunds, and to keep accounting and audit records;</li>
+        <li>to secure your account and our systems (for example sign-in records and security logs);</li>
+        <li>to send you updates you've opted into (you can opt out at any time from your profile);</li>
         <li>to comply with our legal and tax obligations.</li>
       </ul>
       <p>

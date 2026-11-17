@@ -50,7 +50,7 @@ const components = {
 
 export function ProductPortraitLayout({ meta, children }: { meta: Meta; children: ReactNode }) {
   useEffect(() => {
-    document.title = `${meta.name} — Operandi`;
+    document.title = `${meta.name} — Operandis`;
     const ensureMeta = (name: string, attr: "name" | "property" = "name") => {
       let el = document.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
       if (!el) {
@@ -61,16 +61,16 @@ export function ProductPortraitLayout({ meta, children }: { meta: Meta; children
       return el;
     };
     ensureMeta("description").setAttribute("content", meta.oneLiner);
-    ensureMeta("og:title", "property").setAttribute("content", `${meta.name} — Operandi`);
+    ensureMeta("og:title", "property").setAttribute("content", `${meta.name} — Operandis`);
     ensureMeta("og:description", "property").setAttribute("content", meta.oneLiner);
-    ensureMeta("twitter:title").setAttribute("content", `${meta.name} — Operandi`);
+    ensureMeta("twitter:title").setAttribute("content", `${meta.name} — Operandis`);
     ensureMeta("twitter:description").setAttribute("content", meta.oneLiner);
   }, [meta.name, meta.oneLiner]);
 
   return (
     <div className="min-h-screen flex flex-col">
       <Nav />
-      <main className="flex-grow pt-24 md:pt-28 pb-32">
+      <main id="main" className="flex-grow pt-24 md:pt-28 pb-32">
         <Container>
           <div className="max-w-[720px] mx-auto mb-20">
             <Link
@@ -81,7 +81,7 @@ export function ProductPortraitLayout({ meta, children }: { meta: Meta; children
               Back to all products
             </Link>
             <div className="text-[12px] font-medium uppercase tracking-wider text-faint mb-6">
-              OPERANDI / <Link href="/products" className="hover:text-ink transition-colors">PRODUCTS</Link> / {meta.name}
+              OPERANDIS / <Link href="/products" className="hover:text-ink transition-colors">PRODUCTS</Link> / {meta.name}
             </div>
             {meta.logo && <ProductLogo src={meta.logo} alt={`${meta.name} logo`} />}
             <h1 className="font-serif text-[40px] md:text-[56px] font-semibold text-ink leading-[1.1] tracking-tight mb-6">
@@ -147,7 +147,10 @@ export function ProductPortraitLayout({ meta, children }: { meta: Meta; children
               We'd build a version shaped around your business. No two are the same.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <BookCallButton />
+              <Link href="/configure" className="inline-flex items-center gap-2 bg-ink text-white px-5 py-3 text-[13px] font-medium uppercase tracking-wider hover:bg-accent transition-colors rounded-sm">
+                Configure a project
+              </Link>
+              <BookCallButton variant="secondary" />
               <Link
                 href="/products"
                 className="inline-flex items-center gap-2 border hairline text-ink px-5 py-3 text-[13px] font-medium uppercase tracking-wider hover:bg-ink hover:text-white transition-colors rounded-sm"

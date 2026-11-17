@@ -1,45 +1,35 @@
-# [Project name]
+# Operandis
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Software development studio platform: portfolio, package catalogue & checkout, project configurator with indicative estimates, CRM & proposals, client portal and operations console.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `pnpm dev` — API (:5000) + web (:5173, proxies /api)
+- `pnpm typecheck` / `pnpm build` / `pnpm test` / `pnpm test:e2e`
+- `pnpm db:migrate`, `pnpm db:seed` (drafts) or `pnpm db:seed:demo`, `pnpm create-admin -- --email …`
+- `pnpm openapi` — regenerate docs/api/openapi.yaml
+- Required env: `DATABASE_URL`, `APP_SECRET` (see docs/environment.md)
 
 ## Stack
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+pnpm workspaces · Node 22 · TypeScript 5.9 · Express 5 · PostgreSQL + Drizzle · Zod (`zod/v4`) · React 19 + Vite 7 + Tailwind 4 + Wouter · TanStack Query · Vitest · Playwright
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `lib/domain` pricing engine, money, state machines, permissions · `lib/db` schema + migrations · `lib/api-zod` contracts
+- `artifacts/api-server/src/modules/*` API modules · `services/*` integrations · `test/*` integration tests
+- `artifacts/operandi/src/pages/{portal,admin,auth}` · `src/components/ui-kit` primitives · tokens in `src/index.css`
+- Docs: `README.md`, `docs/*`
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
-
-## Product
-
-_Describe the high-level user-facing capabilities of this app once they exist._
-
-## User preferences
-
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Modular monolith; OpenAPI generated from the same Zod schemas used for validation
+- Money in integer minor units; immutable snapshots for estimates, proposals, orders, invoices
+- Payment state only changes on verified provider events (or finance-confirmed EFT)
+- Outbox notifications with dedupe keys; append-only audit log enforced in the DB
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
-
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Vite needs `PORT` and `BASE_PATH` (root scripts default them)
+- Non-GET API calls need the `x-csrf-token` header (= `op_csrf` cookie)
+- Test DBs: `operandis_test`, `operandis_e2e`

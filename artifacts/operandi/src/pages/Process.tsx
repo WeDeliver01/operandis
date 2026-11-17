@@ -5,17 +5,17 @@ import { Container } from "@/components/Container";
 
 export default function Process() {
   useEffect(() => {
-    document.title = "Process — Operandi";
+    document.title = "Process — Operandis";
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-paper text-ink">
       <Nav />
-      <main className="flex-grow">
+      <main id="main" className="flex-grow">
         <section className="pt-32 pb-12 md:pb-16">
           <Container>
             <div className="text-[12px] font-medium uppercase tracking-wider text-faint mb-4">
-              OPERANDI / PROCESS
+              OPERANDIS / PROCESS
             </div>
             <h1 className="font-serif text-[40px] md:text-[56px] font-semibold text-ink leading-tight tracking-tight">
               How we work.

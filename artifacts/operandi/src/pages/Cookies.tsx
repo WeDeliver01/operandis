@@ -2,9 +2,9 @@ import { LegalLayout } from "@/components/LegalLayout";
 
 export default function Cookies() {
   return (
-    <LegalLayout title="Cookie Notice" breadcrumb="COOKIES" lastUpdated="16 May 2026">
+    <LegalLayout title="Cookie Notice" breadcrumb="COOKIES" lastUpdated="17 November 2026">
       <p>
-        This notice explains the cookies and similar technologies used on the Operandi website,
+        This notice explains the cookies and similar technologies used on the Operandis website,
         why we use them, and the choices you have. We use cookies both to keep the site running
         and to understand how people find and use it so we can improve our marketing.
       </p>
@@ -16,6 +16,14 @@ export default function Cookies() {
         token) and the cookies needed to load the embedded Cal.com booking widget when you
         choose to book a call. We do not ask for consent for these because the site cannot
         function without them.
+      </p>
+      <p>
+        Our own strictly necessary cookies are <code>op_session</code> (keeps you signed in to the
+        client portal; HttpOnly, removed when you sign out or after your session expires) and{" "}
+        <code>op_csrf</code> (a security token that protects forms against cross-site request
+        forgery). We also store, in your browser's local storage, your cookie choices and — only
+        while you are filling in the project configurator — a private reference to your saved
+        draft so you can continue later.
       </p>
 
       <h2>Analytics</h2>
