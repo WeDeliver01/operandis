@@ -1,6 +1,6 @@
 # Deployment
 
-> For the operandis.co.za VPS, follow the step-by-step guide in [vps-deployment.md](vps-deployment.md). This page covers the general model.
+> **Production (operandis.co.za on web01): follow [vps-deployment.md](vps-deployment.md)** — Docker Compose + `deploy/deploy.sh`, the same pattern as AirHouse. This page covers the general model and non-Docker options.
 
 ## Topology options
 
@@ -26,7 +26,7 @@ Outputs: `artifacts/api-server/dist/{index,migrate,seed,jobs,create-admin}.mjs` 
 pnpm --filter @workspace/api-server deploy --prod /srv/operandis-api
 ```
 
-then copy `artifacts/api-server/dist` into `/srv/operandis-api/dist` (and `artifacts/operandi/dist/public` if using option A). A `Dockerfile` at the repo root does exactly this (not built in this environment — validate it in CI before relying on it).
+then copy `artifacts/api-server/dist` into `/srv/operandis-api/dist` (and `artifacts/operandi/dist/public` if using option A). The root `Dockerfile` and `docker-compose.yml` (used on web01 by `deploy/deploy.sh`) do exactly this; the stack was built and exercised end to end, including rollback.
 
 ## Release procedure
 
