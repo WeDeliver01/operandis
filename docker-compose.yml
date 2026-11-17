@@ -1,0 +1,71 @@
+# Operandis production stack for web01 (same pattern as AirHouse / WeShip):
+#   host nginx + certbot  ──►  127.0.0.1:${APP_PORT}  ──►  app container  ──►  db container
+# Deploy with ./deploy/deploy.sh — it passes --env-file deploy/.env.production.
+name: operandis
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: operandis-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: operandis
+      POSTGRES_USER: operandis
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in deploy/.env.production}
+    volumes:
+      - operandis-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U operandis -d operandis"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    # Not published: only the app container can reach the database.
+
+  app:
+    build:
+      context: .
+      labels:
+        app: operandis
+    image: operandis-app:${RELEASE:-latest}
+    container_name: operandis
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - deploy/.env.production
+    environment:
+      DATABASE_URL: postgres://operandis:${POSTGRES_PASSWORD}@db:5432/operandis
+      NODE_ENV: production
+      API_PORT: "8080"
+      SERVE_WEB_DIST: /app/web
+      STORAGE_DRIVER: local
+      STORAGE_LOCAL_DIR: /app/.data/files
+      # nginx on the host reaches the container through the Docker bridge (a private range).
+      TRUST_PROXY: loopback,uniquelocal
+    labels:
+      release: ${RELEASE:-latest}
+    ports:
+      # Bound to localhost only; nginx on the host is the public entry point.
+      - "127.0.0.1:${APP_PORT:-5100}:8080"
+    volumes:
+      - operandis-files:/app/.data/files
+    # Pinned resolvers: Tailscale on the host has broken Docker's embedded DNS before (WeShip incident).
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/api/v1/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+volumes:
+  operandis-db:
+  operandis-files:

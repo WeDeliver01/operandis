@@ -10,3 +10,6 @@ test-results/
 playwright-report/
 .DS_Store
 test-results/
+deploy/.env.production
+deploy/.previous-release
+!.env.production.example
