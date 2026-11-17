@@ -1,0 +1,45 @@
+export const meta = {
+  name: "Route Planner",
+  oneLiner: "A courier route-optimisation tool for daily delivery planning.",
+  hero: "/screens/route-planner-hero.jpg",
+  sector: "Logistics / courier operations",
+  type: "Internal operations tool",
+  stack: "React · TypeScript · PostgreSQL · Mapping API",
+  status: "In production",
+  access: "Internal tool, not publicly accessible",
+}
+
+## What it is
+
+Route Planner is the morning-planning tool for a working courier business. Every day, a dispatcher faces the same puzzle: dozens of pickups and deliveries, a handful of drivers, customers who only want to be visited at certain times, and a fleet with limited capacity. Who goes where, in what order, in which vehicle?
+
+For most couriers, the answer is a whiteboard, a printed list, and a WhatsApp group. Route Planner replaces all of that with software that does the puzzle automatically — and gets better at it every day.
+
+## The shape we built
+
+A dispatcher opens Route Planner first thing in the morning, drops in the day's stops, and within seconds gets a full plan: every driver, every route, in the right order, on a map. The system respects the rules of the real business — driver shift lengths, vehicle capacity, customer time windows, depot return rules — so the plan it produces is actually drivable, not just theoretically optimal.
+
+When the day starts to deviate from the plan — a stop gets cancelled, a new one comes in, a driver runs late — the dispatcher doesn't have to rebuild anything. They drag the change in, and the routes recalculate around it instantly.
+
+Each route can be sent straight to the driver's phone with one click, so the handoff from the dispatcher to the driver is seamless. No printed sheets, no copy-and-paste into WhatsApp.
+
+We built it as an internal tool first, but with a clean separation between the rules of *this particular* business and the optimisation brain underneath — so the same engine could one day power a stand-alone product for other couriers.
+
+## A few details worth showing
+
+<Detail>
+- **Whole day planned in seconds.** Every stop, every driver, every route, in the right order, respecting real-world rules of the business.
+- **Knows the constraints that actually matter.** Driver shift hours, vehicle capacity, customer time windows, return-to-depot rules — all built into the planning brain.
+- **Real-time replanning.** Add a stop, remove a stop, swap a driver mid-morning; the system re-routes instantly without losing the work done so far.
+- **Send straight to the driver.** Each finalised route is pushed to the driver's phone with one click — no printed sheets, no copy-paste.
+- **Built to be productised.** The business-specific rules and the optimisation engine are deliberately kept separate, so the same brain could power a stand-alone product later.
+</Detail>
+
+<Screen src="/screens/route-planner-hero.jpg" caption="Dispatch view: map, per-driver day, and stops list. Interface preview — the live tool is internal-only." />
+
+<Stack>
+- **Frontend:** React, TypeScript
+- **Backend:** Node.js
+- **Database:** PostgreSQL
+- **Mapping:** Third-party mapping and directions API
+</Stack>

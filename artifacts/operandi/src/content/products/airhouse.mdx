@@ -1,0 +1,50 @@
+export const meta = {
+  name: "Airhouse",
+  oneLiner: "A two-sided marketplace connecting property developers with content creators for performance-driven social media marketing.",
+  hero: "/screens/airhouse-hero.png",
+  sector: "PropTech / performance marketing",
+  type: "Two-sided marketplace platform",
+  stack: "React · Vite · Supabase · PostgreSQL · RLS",
+  status: "In production",
+  site: "https://airhouse.co.za",
+  logo: "/logos/airhouse.png",
+}
+
+## What it is
+
+Airhouse is a performance-marketing marketplace for the South African property industry. Property developers post a campaign for a new development; vetted social media creators apply, get hired, produce the content, and get paid based on the real leads they generate, not on followers or vanity metrics.
+
+The platform runs the whole loop end-to-end: campaign creation, creator vetting, contract signing, lead tracking, reviews in both directions, and a structured way to resolve disputes when something goes wrong. It's a real marketplace, not a directory.
+
+Both sides have their own tailored experience. Developers see ROI dashboards and lead funnels. Creators see scorecards and a clear path from "I applied" to "I got paid."
+
+## The shape we built
+
+Trust is the whole product. A marketplace only works if both sides believe the other side is real, that contracts can't be quietly altered after signing, and that no one can sneak into a role they shouldn't be in. So we built Airhouse with serious safeguards baked in at every layer.
+
+Every creator is verified before they can apply to a paying campaign. Every campaign assignment is locked behind a digital contract with a tamper-evident seal — if anything changes after both sides sign, the platform notices instantly. Reviews flow in both directions, so reputations get built honestly over time. And when a deal goes sideways, there's a structured dispute path instead of a vague "email us."
+
+We also went deeper than usual on the safety side. The platform is designed so that even in the worst case, no one can quietly grant themselves more access than they're meant to have. There's no shortcut.
+
+The dashboards do the heavy lifting for developers: cost per lead, return on investment, conversion from lead to sale, and creator-by-creator rankings. Creators get scorecards that build a real, portable reputation — earned by performance, not by paying for visibility.
+
+## A few details worth showing
+
+<Detail>
+- **Verified creators only.** No one can apply to a paying campaign until they've been vetted, so developers always know they're hiring someone real.
+- **Tamper-evident digital contracts.** Once both sides sign, the contract is sealed. Any change is detected immediately.
+- **No quiet privilege escalation.** The platform is designed so no one can grant themselves more access than they're meant to have.
+- **Two-way reviews.** Both developers and creators rate each other after a campaign, so reputations are earned honestly across the platform.
+- **Built-in messaging.** Developers and creators talk inside the platform, with conversations private to the two parties involved.
+- **Invoices generated on the fly.** Every transaction produces a downloadable invoice automatically — no chasing for paperwork.
+- **Guided onboarding for both sides.** A step-by-step wizard walks each new developer and creator through what they need to start working.
+</Detail>
+
+<Screen src="/screens/airhouse-hero.png" caption="Performance-driven social media marketing for property developments." />
+
+<Stack>
+- **Frontend:** React 18, Vite, custom design system, Recharts
+- **Backend-as-a-service:** Supabase (Auth, Realtime, Storage)
+- **Database:** PostgreSQL
+- **Email:** Express server for transactional emails
+</Stack>

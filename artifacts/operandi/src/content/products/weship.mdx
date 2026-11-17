@@ -1,0 +1,54 @@
+export const meta = {
+  name: "WeShip",
+  oneLiner: "Multi-tenant SaaS logistics platform for South African eCommerce: courier aggregation, billing, and shipment tracking.",
+  hero: "/screens/weship-hero.png",
+  sector: "Logistics & eCommerce infrastructure",
+  type: "Multi-tenant SaaS platform",
+  stack: "React · Express · PostgreSQL · Drizzle · ShipLogic · BobPay",
+  status: "In production",
+  site: "https://weship.co.za",
+}
+
+## What it is
+
+WeShip is delivery infrastructure for South African e-commerce. A shop owner connects their online store, and within seconds gets live shipping quotes from multiple local couriers, books the shipment, prints the label, and tracks the parcel all the way to the customer — from a single dashboard.
+
+The platform handles the boring-but-critical layers of a real software business: subscriptions, courier integrations, error logs, and a developer surface that lets bigger merchants embed shipping straight into their checkout. Every customer gets their own private workspace inside the same platform, branded with their own colours.
+
+This is a real SaaS product, not an internal tool. Merchants sign up themselves, manage their team, and can leave whenever they want.
+
+## The shape we built
+
+A complete subscription business in a box. New customers can sign up, try the platform, and from that moment the system runs itself: it handles the day-to-day billing lifecycle, sends reminders at the right moments, and brings accounts back online the moment they're back in good standing. The operational side runs without a human in the loop.
+
+Every customer's data is walled off from every other customer's. Even in the unlikely event of a bug, one shop simply cannot see another shop's orders — the separation is enforced from the ground up.
+
+When a customer's online store sends WeShip an order, the system gracefully handles the same order arriving twice (the internet is unreliable, and stores often retry). Duplicates are recognised and ignored, so nothing is shipped or billed twice. Anything arriving from the outside world — stores, couriers, payment providers — is verified before it's trusted.
+
+The product itself is built to feel premium. White surfaces, soft shadows, near-black text, and each customer's own brand colours applied live, so their dashboard feels like an extension of their own shop rather than a generic admin panel.
+
+## A few details worth showing
+
+<Detail>
+- **A self-running subscription engine.** New customers sign up, get a trial, and from then on the platform handles the day-to-day billing lifecycle on its own — no manual chasing.
+- **No leak between customers.** Every shop's data is fenced off so one customer simply cannot see another customer's orders, even by accident.
+- **Duplicate-proof orders.** When the same order is sent twice (which happens often with online stores), the system recognises it and quietly ignores the duplicate.
+- **Verified at every door.** Anything arriving from the outside world is checked before it's trusted, so nothing forged gets through.
+- **A developer API for bigger merchants.** Larger merchants can plug WeShip directly into their checkout. Each integration is metered separately, so a runaway one can't take the platform down.
+- **A clear audit trail.** Every API call is logged, so any "did we send that label?" question has a definitive answer.
+- **Granular staff permissions.** Different roles for billing, courier management, and customer admin, with custom roles available when needed.
+- **Safe-by-default in production.** Demo and simulator tools are automatically disabled on the live site, so they can't accidentally create fake shipments against real customer accounts.
+- **A branded experience for every customer.** Each merchant's logo and colours are applied live to their dashboard — no rebuilds, no separate apps, no extra deploy.
+</Detail>
+
+<Screen src="/screens/weship-hero.png" caption="Landing page hero: 'Logistics, simplified. Precision at scale.'" />
+
+<Stack>
+- **Frontend:** React 18, Vite, TypeScript, Tailwind, shadcn/ui, Recharts, TanStack Query v5, wouter
+- **Backend:** Node.js, Express, TypeScript
+- **Database:** PostgreSQL with Drizzle ORM
+- **Courier aggregation:** ShipLogic TMS
+- **Payments:** BobPay
+- **Email:** Resend / SendGrid
+- **Analytics:** Google Analytics
+</Stack>

@@ -1,0 +1,49 @@
+export const meta = {
+  name: "Elegant Customise",
+  oneLiner: "A personalised drinkware storefront with a live mockup canvas, checkout, and admin analytics.",
+  hero: "/screens/elegant-hero.png",
+  sector: "E-commerce / personalised gifts",
+  type: "Storefront + admin + design canvas",
+  stack: "React · Vite · Express · PostgreSQL · Drizzle · Clerk",
+  status: "In production",
+  site: "https://elegantcustomise.co.za",
+}
+
+## What it is
+
+Elegant Customise is a personalised drinkware and gifts storefront for the South African market. Customers don't just buy a glass — they design it. Each piece of handcrafted glassware can be customised live on the site before checkout, so what the customer sees on screen is what arrives at their door.
+
+Behind the scenes, the product is really three connected pieces: the public shop the customer sees, a private design studio where the team builds and previews each personalised mockup, and an admin platform that runs the operational side.
+
+## The shape we built
+
+Three apps that look and feel like one. The shop, the design studio, and the admin all live under the same roof, share the same login, and pull from the same single source of truth. Staff don't copy data between tools, and customers never see a seam.
+
+We treated this like a real launch, not a soft demo. The site is hardened against the usual things that quietly cause problems for a small e-commerce business, and the team has clear visibility into anything unusual.
+
+We also built it to be found. The shop ships with proper search-engine plumbing — clean product pages, social-share previews, and the right metadata so the product surfaces well in Google. Same for accessibility: the site works cleanly with a keyboard, with a screen reader, and on a slow phone, not just on a designer's laptop.
+
+Shipping and payments are wired in so live courier quotes and card payment work end-to-end at checkout, in rands.
+
+## A few details worth showing
+
+<Detail>
+- **One codebase, three apps.** The customer shop, the internal design studio, and the admin platform are built and shipped together, sharing data and login. No syncing, no duplicate work.
+- **Built to be found on Google.** Product pages are structured so they can surface as rich results in search — with image and price — instead of a plain blue link.
+- **Hardened for the real internet.** Every entry point is protected against the things that quietly cause problems for small e-commerce sites.
+- **Role-based admin.** Staff and admins have separate access. An admin can see things a staff member can't, and the system enforces that at both the screen and the data level.
+- **Live shipping and payments at checkout.** Real courier quotes and card payments work end-to-end, in rands.
+- **Made for everyone.** Keyboard shortcuts, screen-reader announcements when items go into the cart, and graceful handling on slow connections.
+- **A polite "we'll be right back" page** for the rare moments when the site is updating, so customers never see a broken screen.
+</Detail>
+
+<Screen src="/screens/elegant-hero.png" caption="Storefront hero: handcrafted drinkware, tailored to each customer." />
+
+<Stack>
+- **Frontend:** React, Vite, TypeScript, Tailwind
+- **Backend:** Node.js, Express 5, TypeScript (ESM)
+- **Database:** PostgreSQL with Drizzle ORM
+- **Auth & RBAC:** Clerk
+- **Validation:** Zod via `drizzle-zod`
+- **Build:** Vite (client), esbuild (server), pnpm workspaces
+</Stack>

@@ -1,0 +1,53 @@
+export const meta = {
+  name: "DeNexus",
+  oneLiner: "A unified command centre for a multi-brand operator: CRM, WhatsApp inbox, shipments, and team chat in one app.",
+  hero: "/screens/denexus-hero.jpg",
+  sector: "Internal operations / CRM",
+  type: "Multi-brand internal platform (PWA)",
+  stack: "React · Express · PostgreSQL · Drizzle · Web Push",
+  status: "In production",
+  access: "Internal tool, not publicly accessible",
+  logo: "/logos/denexus.png",
+}
+
+## What it is
+
+DeNexus is the internal command centre for a South African operator running two very different brands side by side, on opposite ends of the supply chain. Before DeNexus, the team ran each brand out of a mix of spreadsheets, WhatsApp groups, a shared inbox, and other tools that didn't talk to each other.
+
+DeNexus replaces all of that with a single platform. Contacts, leads, sales pipelines, daily tasks, shipment tracking, the WhatsApp inbox, KPIs, calendars, and internal team chat — every workflow that used to live in a different app now lives in one place, under one login.
+
+It's one product running two businesses in parallel. Staff see only the data and tools their role allows, and they can flip between brands without losing context.
+
+## The shape we built
+
+We built DeNexus to be radically simple to run. Most platforms this ambitious need several moving parts — a queue, a cache, a separate worker, a different process for notifications. We chose to do it with one. The same single application handles every page, every notification, every external integration. That means there's only one thing to deploy, one thing to monitor, and one place where bugs can hide. It's a deliberate choice that buys the team years of operational simplicity.
+
+Permissions are enforced everywhere, not just on the surface. Every page a user opens and every action they take is checked against their role. Staff don't even see the parts of the system they aren't allowed to touch — those modules simply don't appear in their menu.
+
+Notifications work the way people actually want them to. Important events show up as a number on the bell icon, and staff can opt in to real desktop notifications that fire even when DeNexus isn't open. Sensitive information is kept off lock-screen previews, so a parcel notification doesn't leak a customer's name to a stranger glancing at someone's phone.
+
+The whole thing installs like an app on a phone or laptop. When we ship a new version, users see a small "refresh to update" prompt — no forced restarts, no broken screens, no IT calls.
+
+## A few details worth showing
+
+<Detail>
+- **One app, two businesses.** Both brands' workflows live in the same product. Staff filter the whole platform between brands with one click, without losing context.
+- **One product, one deploy.** We deliberately built DeNexus as a single application instead of a sprawl of services. Fewer moving parts, fewer outages, less to maintain over the years.
+- **Permissions on everything, everywhere.** Multiple staff roles across every module. Staff don't even see the parts of the system they aren't allowed to use.
+- **Real desktop notifications.** Staff get phone and desktop alerts the moment something important happens — even when DeNexus isn't open in a browser tab.
+- **Privacy on lock-screen previews.** Notifications that appear on a locked phone keep personal details out of view, so nothing leaks to onlookers.
+- **WhatsApp built in.** Customer WhatsApp conversations land directly in the platform, alongside the rest of the workflow — no app-switching.
+- **Reliable courier tracking.** Carrier updates are handled in any order, with safeguards so the same parcel can never be duplicated or double-counted.
+- **Installs like a real app.** Staff can pin DeNexus to their phone or laptop, and updates roll out with a friendly "refresh to update" prompt — no forced restarts.
+</Detail>
+
+<Screen src="/screens/denexus-hero.jpg" caption="DeNexus command centre: KPI overview, brand filter, and live activity. Interface preview — the live tool is internal-only." />
+
+<Stack>
+- **Frontend:** React 18, Vite, TypeScript, Tailwind, shadcn/ui, TanStack Query v5, wouter, Recharts, framer-motion
+- **Backend:** Node.js, Express 5, TypeScript
+- **Database:** PostgreSQL with Drizzle ORM
+- **Auth:** Passport.js
+- **Push:** Web Push (VAPID)
+- **WhatsApp:** Meta Cloud API / 360dialog
+</Stack>
