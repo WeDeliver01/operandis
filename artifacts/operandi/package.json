@@ -79,6 +79,9 @@
     "@mdx-js/react": "^3.1.1",
     "@mdx-js/rollup": "^3.1.1",
     "remark-frontmatter": "^5.0.0",
-    "remark-mdx-frontmatter": "^5.2.0"
+    "remark-mdx-frontmatter": "^5.2.0",
+    "@workspace/domain": "workspace:*",
+    "@workspace/api-zod": "workspace:*",
+    "react-markdown": "^10.1.0"
   }
 }

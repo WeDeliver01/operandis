@@ -4,7 +4,7 @@ export default function Privacy() {
   return (
     <LegalLayout title="Privacy Policy" breadcrumb="PRIVACY" lastUpdated="16 May 2026">
       <p>
-        Operandi ("we", "us", "our") respects your privacy. This policy explains what personal
+        Operandis ("we", "us", "our") respects your privacy. This policy explains what personal
         information we collect when you interact with this website or engage us as a client, how
         we use it, and the rights you have under the South African Protection of Personal
         Information Act, 2013 ("POPIA").
@@ -12,7 +12,7 @@ export default function Privacy() {
 
       <h2>1. Who we are</h2>
       <p>
-        Operandi is the trading name of an independent custom software studio based in Pretoria,
+        Operandis is the trading name of an independent custom software studio based in Pretoria,
         South Africa. For the purposes of POPIA we are the Responsible Party for the personal
         information processed through this website and in the course of our client work.
       </p>

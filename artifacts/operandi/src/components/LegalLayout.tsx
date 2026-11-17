@@ -14,13 +14,13 @@ interface LegalLayoutProps {
 
 export function LegalLayout({ title, breadcrumb, lastUpdated, children }: LegalLayoutProps) {
   useEffect(() => {
-    document.title = `${title} — Operandi`;
+    document.title = `${title} — Operandis`;
   }, [title]);
 
   return (
     <div className="min-h-screen flex flex-col bg-paper text-ink">
       <Nav />
-      <main className="flex-grow">
+      <main id="main" className="flex-grow">
         <section className="pt-40 pb-12 border-b hairline">
           <Container>
             <div className="max-w-[760px]">
@@ -32,7 +32,7 @@ export function LegalLayout({ title, breadcrumb, lastUpdated, children }: LegalL
                 Back to home
               </Link>
               <div className="text-[12px] font-medium uppercase tracking-wider text-faint mb-4">
-                <Link href="/" className="hover:text-ink transition-colors">OPERANDI</Link> / {breadcrumb}
+                <Link href="/" className="hover:text-ink transition-colors">OPERANDIS</Link> / {breadcrumb}
               </div>
               <h1 className="font-serif text-[40px] md:text-[56px] font-semibold text-ink leading-tight tracking-tight">
                 {title}

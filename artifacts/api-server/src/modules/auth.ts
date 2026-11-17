@@ -67,6 +67,15 @@ export function authRoutes(app: AppContext): RouteDef[] {
     }),
     defineRoute({
       method: "get",
+      path: "/auth/session",
+      summary: "Current session: the signed-in user, or null for anonymous visitors (always 200)",
+      tags: ["auth"],
+      auth: "public",
+      response: z.object({ user: meSchema.nullable() }),
+      handler: async ({ auth }) => ({ user: auth ? await buildMe(app, auth) : null }),
+    }),
+    defineRoute({
+      method: "get",
       path: "/me",
       summary: "Current user, roles, permissions and organisations",
       tags: ["auth"],

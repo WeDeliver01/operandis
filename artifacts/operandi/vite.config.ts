@@ -66,6 +66,8 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
+    // The API runs separately in development; proxy keeps cookies same-origin.
+    proxy: { "/api": { target: process.env.API_URL ?? "http://localhost:5000", changeOrigin: false } },
     port,
     strictPort: true,
     host: "0.0.0.0",
@@ -75,6 +77,7 @@ export default defineConfig({
     },
   },
   preview: {
+    proxy: { "/api": { target: process.env.API_URL ?? "http://localhost:5000", changeOrigin: false } },
     port,
     host: "0.0.0.0",
     allowedHosts: true,

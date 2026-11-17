@@ -3,19 +3,28 @@ import { Link } from "wouter";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Container } from "@/components/Container";
-import { ProductTile } from "@/components/ProductTile";
+import { PortfolioTile } from "@/components/ProductTile";
 import { BookCallButton } from "@/components/BookCallButton";
-import { Plus } from "lucide-react";
-import { flagshipProducts, supportingProducts } from "@/content/products";
+import { Plus, ArrowRight } from "lucide-react";
+import { usePortfolio, usePackages, useFaqs } from "@/lib/queries";
+import { useBrand } from "@/lib/settings";
+import { money } from "@/lib/format";
 
 export default function Home() {
+  const brand = useBrand();
   useEffect(() => {
-    document.title = "Operandi — Custom software for operators";
-  }, []);
+    document.title = `${brand} — Software development studio`;
+  }, [brand]);
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const portfolio = usePortfolio();
+  const flagshipProducts = (portfolio.data ?? []).filter((p) => p.featured);
+  const supportingCount = (portfolio.data ?? []).filter((p) => !p.featured).length;
+  const packages = usePackages();
+  const featuredPackages = (packages.data ?? []).filter((p) => p.featured && p.status === "published").slice(0, 3);
+  const faqQuery = useFaqs("home");
 
-  const faqs = [
+  const staticFaqs = [
     {
       q: "Do you work with non-technical founders?",
       a: "Yes. Most of our clients are operators, not engineers. We translate."
@@ -37,12 +46,13 @@ export default function Home() {
       a: "Yes. After launch, you can keep us on a monthly retainer for bug fixes, new features, and on-call support. Or you take it in-house. Your call."
     }
   ];
+  const faqs = faqQuery.data?.length ? faqQuery.data.map((f) => ({ q: f.question, a: f.answer })) : staticFaqs;
 
   return (
     <div className="min-h-screen flex flex-col bg-paper text-ink">
       <Nav />
       
-      <main className="flex-grow">
+      <main id="main" className="flex-grow">
         {/* Section 1 - Hero */}
         <section className="pt-40 md:pt-32 md:min-h-[80vh] flex flex-col justify-center pb-20">
           <Container>
@@ -53,11 +63,16 @@ export default function Home() {
               Custom internal tools, customer platforms, and operational systems for operators who've outgrown spreadsheets and off-the-shelf software.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-10">
-              <Link href="/products" className="inline-flex justify-center items-center bg-ink text-white px-6 py-3 text-[14px] font-medium uppercase tracking-wider transition-colors hover:bg-accent rounded-sm">
+              <Link href="/configure" className="inline-flex justify-center items-center bg-ink text-white px-6 py-3 text-[14px] font-medium uppercase tracking-wider transition-colors hover:bg-accent rounded-sm">
+                Configure a project
+              </Link>
+              <Link href="/work" className="inline-flex justify-center items-center border border-ink text-ink px-6 py-3 text-[14px] font-medium uppercase tracking-wider transition-colors hover:bg-ink hover:text-paper rounded-sm">
                 See our work
               </Link>
-              <BookCallButton variant="secondary" />
             </div>
+            <p className="text-[14px] text-muted mt-5">
+              Prefer to talk first? <BookCallButton className="underline underline-offset-4 text-ink hover:text-accent cursor-pointer">Book a free 30-minute call</BookCallButton>.
+            </p>
           </Container>
         </section>
 
@@ -80,13 +95,13 @@ export default function Home() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-16">
               {flagshipProducts.map((product) => (
-                <ProductTile key={product.slug} {...product} />
+                <PortfolioTile key={product.slug} p={product} />
               ))}
             </div>
 
             <div className="mt-8 text-right">
-              <Link href="/products" className="inline-flex items-center text-[15px] font-medium text-ink hover:underline hover:text-accent transition-colors">
-                See {supportingProducts.length} more builds &rarr;
+              <Link href="/work" className="inline-flex items-center text-[15px] font-medium text-ink hover:underline hover:text-accent transition-colors">
+                See {supportingCount} more builds &rarr;
               </Link>
             </div>
           </Container>
@@ -133,6 +148,46 @@ export default function Home() {
           </Container>
         </section>
 
+        {/* Section 4b - Ways to start */}
+        <section className="py-20 md:py-24 border-t hairline">
+          <Container>
+            <h2 className="font-serif text-[32px] md:text-[40px] font-medium text-ink">Three ways to start</h2>
+            <p className="font-sans text-[17px] text-muted mt-4 max-w-[720px]">
+              Whether you know exactly what you need or only know what's not working, there's a clear next step — with prices you can see before you commit.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+              <Link href="/packages" className="group bg-white border hairline rounded-sm p-8 hover:shadow-ambient transition-shadow">
+                <div className="text-[12px] font-medium text-faint uppercase tracking-wider">Fixed scope</div>
+                <h3 className="font-serif text-[24px] font-medium text-ink mt-3">Buy a package</h3>
+                <p className="text-[15px] text-muted mt-3 leading-relaxed">Websites, stores, integrations and more — with published inclusions, timelines and prices. Check out online.</p>
+                <span className="inline-flex items-center gap-1 mt-6 text-[14px] font-medium text-ink group-hover:text-accent">Browse packages <ArrowRight size={14} /></span>
+              </Link>
+              <Link href="/configure" className="group bg-ink text-paper rounded-sm p-8 hover:bg-accent transition-colors">
+                <div className="text-[12px] font-medium text-paper/60 uppercase tracking-wider">Custom software</div>
+                <h3 className="font-serif text-[24px] font-medium mt-3">Configure a project</h3>
+                <p className="text-[15px] text-paper/80 mt-3 leading-relaxed">Answer plain-language questions about your problem and get an indicative cost range, timeline and payment plan.</p>
+                <span className="inline-flex items-center gap-1 mt-6 text-[14px] font-medium">Start the configurator <ArrowRight size={14} /></span>
+              </Link>
+              <Link href="/packages/discovery-sprint" className="group bg-white border hairline rounded-sm p-8 hover:shadow-ambient transition-shadow">
+                <div className="text-[12px] font-medium text-faint uppercase tracking-wider">Not sure yet</div>
+                <h3 className="font-serif text-[24px] font-medium text-ink mt-3">Start with discovery</h3>
+                <p className="text-[15px] text-muted mt-3 leading-relaxed">A short, paid discovery sprint that turns a business problem into a validated scope and a fixed-price proposal.</p>
+                <span className="inline-flex items-center gap-1 mt-6 text-[14px] font-medium text-ink group-hover:text-accent">About discovery <ArrowRight size={14} /></span>
+              </Link>
+            </div>
+            {featuredPackages.length > 0 && (
+              <div className="mt-12 border-t hairline pt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                {featuredPackages.map((p) => (
+                  <Link key={p.slug} href={`/packages/${p.slug}`} className="group flex items-baseline justify-between gap-4 border-b hairline pb-4">
+                    <span className="font-serif text-[19px] text-ink group-hover:text-accent">{p.name}</span>
+                    <span className="text-[14px] text-muted whitespace-nowrap">{p.pricingMode === "quote_only" ? "On proposal" : `${p.pricingMode === "starting_from" || p.fromPriceMinor !== 0 ? "from " : ""}${money(p.fromPriceMinor)}`}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </Container>
+        </section>
+
         {/* Section 5 - How we work */}
         <section className="py-20 md:py-24 border-t hairline">
           <Container>
@@ -167,12 +222,12 @@ export default function Home() {
           </Container>
         </section>
 
-        {/* Section 6 - Why Operandi */}
+        {/* Section 6 - Why Operandis */}
         <section className="py-20 md:py-24 border-t hairline bg-paper">
           <Container>
             <div className="flex flex-col md:flex-row gap-12 md:gap-0">
               <div className="md:w-[40%]">
-                <h2 className="font-serif text-[32px] md:text-[40px] font-medium text-ink">Why Operandi</h2>
+                <h2 className="font-serif text-[32px] md:text-[40px] font-medium text-ink">Why {brand}</h2>
               </div>
               <div className="md:w-[55%] md:ml-auto">
                 <div className="font-sans text-[18px] text-ink leading-[1.65] space-y-6">
@@ -200,6 +255,7 @@ export default function Home() {
                   <div key={index} className={`border-t hairline ${index === faqs.length - 1 ? 'border-b hairline' : ''}`}>
                     <button 
                       onClick={() => setOpenFaq(isOpen ? null : index)}
+                      aria-expanded={isOpen}
                       className="w-full py-6 flex items-center justify-between text-left group focus:outline-none"
                     >
                       <h3 className="font-serif text-[22px] font-medium text-ink group-hover:text-accent transition-colors pr-8">
@@ -233,9 +289,12 @@ export default function Home() {
               <p className="font-sans text-[18px] text-muted mt-4 max-w-[480px] leading-relaxed">
                 Tell us what your team is struggling with. We'll tell you, honestly, whether software is the answer, and if so, what it looks like.
               </p>
-              <div className="mt-8">
+              <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/configure" className="inline-block bg-ink text-white px-8 py-4 text-[14px] font-medium uppercase tracking-wider hover:bg-accent transition-colors rounded-sm">
+                  Configure a project
+                </Link>
                 <BookCallButton
-                  className="inline-block bg-ink text-white px-8 py-4 text-[14px] font-medium uppercase tracking-wider hover:bg-accent transition-colors rounded-sm cursor-pointer"
+                  className="inline-block border border-ink text-ink px-8 py-4 text-[14px] font-medium uppercase tracking-wider hover:bg-ink hover:text-paper transition-colors rounded-sm cursor-pointer"
                 >
                   Book a 30-minute call
                 </BookCallButton>

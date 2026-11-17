@@ -4,7 +4,7 @@ export default function Cookies() {
   return (
     <LegalLayout title="Cookie Notice" breadcrumb="COOKIES" lastUpdated="16 May 2026">
       <p>
-        This notice explains the cookies and similar technologies used on the Operandi website,
+        This notice explains the cookies and similar technologies used on the Operandis website,
         why we use them, and the choices you have. We use cookies both to keep the site running
         and to understand how people find and use it so we can improve our marketing.
       </p>
