@@ -62,3 +62,18 @@ Everything in spec §§5–9 that needs a server: package catalogue and checkout
 3. Create the referenced `lib/db` and `lib/api-zod` packages (fixes the baseline typecheck), plus `lib/domain` for pure, unit-tested business logic (money, pricing, state machines, permissions).
 4. Generate OpenAPI from the same Zod contracts used for runtime validation (no hand-maintained duplicate spec).
 5. Preserve the six MDX case studies as long-form bodies; portfolio metadata moves to the database so it is admin-managed.
+
+---
+
+## 8. Post-implementation status (17 November 2026)
+
+| Baseline item | Now |
+| --- | --- |
+| `pnpm run typecheck` failing (missing `lib/db`, `lib/api-zod`, MDX types) | ✅ passes — packages created, `src/mdx.d.ts` added |
+| Static portfolio | DB-backed CMS for all metadata; six MDX bodies preserved verbatim; generic CMS case-study page for new entries; `/work` added, `/products/*` URLs unchanged |
+| No backend | Express 5 modular monolith, 38 tables, 2 migrations, 160+ documented operations |
+| Contact = Cal.com only | Contact form → deduplicated CRM lead, plus the original Cal.com embed |
+| Brand string "Operandi" | "Operandis" (configurable trading name in Settings → Business) |
+| No tests | 36 domain unit tests, 52 API integration/security tests, 2 Playwright end-to-end journeys |
+
+Preserved: visual tokens and typography, all original public routes, legal pages (updated, flagged for counsel review), consent banner and consent-gated tags (now with withdrawal handling), Vite `PORT`/`BASE_PATH` behaviour, pnpm `minimumReleaseAge`.

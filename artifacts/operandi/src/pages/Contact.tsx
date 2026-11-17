@@ -103,7 +103,7 @@ export default function Contact() {
               <div className="border hairline rounded-sm overflow-hidden bg-white">
                 <Cal
                   namespace={CAL_NAMESPACE}
-                  calLink={CAL_LINK}
+                  calLink={business.calLink || CAL_LINK}
                   style={{ width: "100%", height: "680px", overflow: "scroll" }}
                   config={{ layout: "month_view", theme: "light" }}
                 />

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { CAL_LINK, CAL_NAMESPACE } from "@/lib/cal";
+import { usePublicSettings } from "@/lib/settings";
 
 interface BookCallButtonProps {
   variant?: "primary" | "secondary";
@@ -9,6 +10,7 @@ interface BookCallButtonProps {
 }
 
 export function BookCallButton({ variant = "primary", children, className }: BookCallButtonProps) {
+  const calLink = usePublicSettings().business.calLink || CAL_LINK;
   useEffect(() => {
     (async () => {
       const cal = await getCalApi({ namespace: CAL_NAMESPACE });
@@ -29,7 +31,7 @@ export function BookCallButton({ variant = "primary", children, className }: Boo
     <button
       type="button"
       data-cal-namespace={CAL_NAMESPACE}
-      data-cal-link={CAL_LINK}
+      data-cal-link={calLink}
       data-cal-config='{"layout":"month_view"}'
       className={
         className ??

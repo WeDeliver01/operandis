@@ -193,7 +193,7 @@ export default function Checkout({ params }: { params: { slug: string } }) {
                 </Alert>
               )}
               <Btn type="submit" size="lg" loading={busy} disabled={blocked || !form.acceptTerms || !provider || !form.name || !form.email} className="w-full sm:w-auto">
-                <Lock size={14} /> {provider === "eft" ? "Place order & get EFT details" : `Pay ${quote.data ? "" : ""}securely`}
+                <Lock size={14} /> {provider === "eft" ? "Place order & get EFT details" : "Pay securely"}
               </Btn>
             </form>
 

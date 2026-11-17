@@ -11,18 +11,19 @@ await build({
   outdir: "dist",
   outExtension: { ".js": ".mjs" },
   sourcemap: true,
-  // Native / large runtime deps stay external and are installed in production.
-  packages: "external",
-  // Workspace packages are TypeScript sources and must be bundled.
+  // npm dependencies stay external (installed in production with `pnpm deploy`);
+  // workspace packages are TypeScript sources and are bundled in.
   plugins: [
     {
-      name: "bundle-workspace",
+      name: "externalize-npm",
       setup(b) {
-        b.onResolve({ filter: /^@workspace\// }, () => undefined);
+        b.onResolve({ filter: /^[^./]/ }, (args) => {
+          if (args.path.startsWith("@workspace/") || args.path.startsWith("node:")) return undefined;
+          return { path: args.path, external: true };
+        });
       },
     },
   ],
-  external: [],
   banner: { js: "import { createRequire as __cr } from 'node:module'; const require = __cr(import.meta.url);" },
   logLevel: "info",
 });

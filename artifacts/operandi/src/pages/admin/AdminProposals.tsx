@@ -225,7 +225,6 @@ export function AdminProposal({ params }: { params: { id: string } }) {
               <Btn type="submit" size="sm" disabled={!reply.body.trim()}>Post</Btn>
             </form>
           </Card>
-          <p className="text-[12px] text-muted">Created {dateTime(p.sentAt ?? null)}</p>
         </aside>
       </div>
     </AdminLayout>

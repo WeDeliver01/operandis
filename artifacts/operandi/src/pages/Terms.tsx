@@ -2,7 +2,7 @@ import { LegalLayout } from "@/components/LegalLayout";
 
 export default function Terms() {
   return (
-    <LegalLayout title="Terms of Service" breadcrumb="TERMS" lastUpdated="16 May 2026">
+    <LegalLayout title="Terms of Service" breadcrumb="TERMS" lastUpdated="17 November 2026">
       <p>
         These terms govern your use of the Operandis website at{" "}
         <strong>operandi.studio</strong> ("the site"). By accessing the site you agree to be
@@ -69,10 +69,37 @@ export default function Terms() {
         Protection Act, 2008, where it applies).
       </p>
 
-      <h2>7. Bookings and enquiries</h2>
+      <h2>7. Enquiries, estimates, packages and proposals</h2>
       <p>
-        Booking a working session or sending us an enquiry doesn't create a contract. A binding
-        engagement only exists once both parties sign a written scope of work.
+        Booking a working session, sending an enquiry or using the project configurator doesn't
+        create a contract. Estimates produced by the configurator are <strong>indicative and
+        non-binding</strong>: they are calculated from your answers and our published pricing
+        rules, and are subject to discovery and a written proposal. An estimate does not reserve
+        capacity or guarantee a delivery date.
+      </p>
+      <p>
+        A binding engagement exists when you either (a) purchase a fixed-scope package online and
+        we receive confirmation of your payment from our payment provider, or (b) accept a
+        specific version of a written proposal in the client portal. The package page or proposal
+        version you accepted — its scope, exclusions, price, payment schedule and terms — forms
+        part of that agreement, and we keep an exact record of it. Changes after acceptance are
+        handled through change control and may be quoted separately; defects in delivered work
+        are fixed under the warranty stated in your package or proposal.
+      </p>
+      <h3>Payments, cancellations and refunds</h3>
+      <p>
+        Card and instant-EFT payments are processed by a third-party payment provider on its own
+        secure pages; we never see or store your card details. Payments are only treated as
+        received once the provider (or, for manual EFT, our bank) confirms them. Cancellation and
+        refund terms are shown on each package page and in each proposal before you pay or
+        accept. Work does not start until any required deposit has been received unless we agree
+        otherwise in writing. Nothing in these terms limits rights you may have under the Consumer
+        Protection Act or the Electronic Communications and Transactions Act.
+      </p>
+      <h3>Client portal accounts</h3>
+      <p>
+        You are responsible for keeping your sign-in details confidential and for activity on your
+        account. Tell us immediately at the legal contact below if you suspect unauthorised use.
       </p>
 
       <h2>8. Changes to these terms</h2>
