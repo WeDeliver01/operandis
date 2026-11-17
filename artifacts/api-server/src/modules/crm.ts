@@ -59,7 +59,7 @@ export function contactRoutes(app: AppContext): RouteDef[] {
           await app.notifications.queue(tx, { template: "contact.received", toEmail: body.email, channels: ["email"], data: { name: body.name } });
           return l;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return { reference: lead.reference };
       },
     }),

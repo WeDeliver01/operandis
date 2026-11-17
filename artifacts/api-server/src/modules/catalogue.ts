@@ -232,7 +232,7 @@ export function publicCatalogueRoutes(app: AppContext): RouteDef[] {
           await tx.insert(leadActivities).values({ leadId: lead.id, type: "enquiry", body: `Requested a proposal for ${loaded.pkg.name}`, metadata: { packageSlug: loaded.pkg.slug, selection: body.selection } });
           return lead;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return { reference: result.reference };
       },
     }),

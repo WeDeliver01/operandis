@@ -205,7 +205,7 @@ export function configuratorRoutes(app: AppContext): RouteDef[] {
             await app.notifications.queue(tx, { template: "configurator.resume_link", toEmail: email, channels: ["email"], data: { path: `/configure?resume=${params.token}` } });
             await tx.update(configuratorDrafts).set({ resumeEmailSentAt: new Date() }).where(eq(configuratorDrafts.id, d.id));
           });
-          void app.notifications.dispatchPending();
+          app.notifications.kick();
         }
         const stepIndex = CONFIGURATOR_STEPS.findIndex((s) => s.key === body.currentStep);
         if (stepIndex > CONFIGURATOR_STEPS.findIndex((s) => s.key === d.currentStep)) {
@@ -360,7 +360,7 @@ export function configuratorRoutes(app: AppContext): RouteDef[] {
           if (!winner) throw e;
           submission = winner;
         }
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return { ...(await buildEstimateView(app, app.db, submission)), accessToken: estimateAccessToken(app.config.APP_SECRET, submission.reference) };
       },
     }),

@@ -223,7 +223,7 @@ export function adminSystemRoutes(app: AppContext): RouteDef[] {
           await audit(tx, req, { action: "user.created", entityType: "user", entityId: c.userId, after: { email: body.email, role: body.role } });
           return c;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return { id: user.userId };
       },
     }),

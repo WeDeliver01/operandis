@@ -699,7 +699,7 @@ export function adminFinanceRoutes(app: AppContext): RouteDef[] {
           }
           return i;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return inv;
       },
     }),
@@ -841,7 +841,7 @@ export function adminFinanceRoutes(app: AppContext): RouteDef[] {
           if (r.status === "duplicate") throw conflict("This bank reference has already been recorded.");
           return r;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return result;
       },
     }),
@@ -902,7 +902,7 @@ export function adminFinanceRoutes(app: AppContext): RouteDef[] {
           if (status === "succeeded") await applyRefundCompletion(app, tx, updated.id, req);
           await audit(tx, req, { action: `refund.${status}`, entityType: "refund", entityId: updated.id, after: { providerRefundId, failureReason } });
           return updated;
-        }).finally(() => void app.notifications.dispatchPending());
+        }).finally(() => app.notifications.kick());
       },
     }),
     defineRoute({
@@ -923,7 +923,7 @@ export function adminFinanceRoutes(app: AppContext): RouteDef[] {
           await applyRefundCompletion(app, tx, refund.id, req);
           return u;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return r;
       },
     }),

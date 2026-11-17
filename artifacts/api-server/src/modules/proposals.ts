@@ -571,7 +571,7 @@ export function adminProposalRoutes(app: AppContext): RouteDef[] {
           }
           return { ok: true as const, contentHash };
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return result;
       },
     }),
@@ -707,7 +707,7 @@ export function portalProposalRoutes(app: AppContext): RouteDef[] {
         if (body.proposalId !== params.id) throw new AppError(400, "bad_request", "Proposal mismatch.");
         await loadForClient(a.user.id, params.id);
         const result = await acceptProposal(app, req, a.user.id, params.id, body.contentHash);
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return result;
       },
     }),
@@ -730,7 +730,7 @@ export function portalProposalRoutes(app: AppContext): RouteDef[] {
           await audit(tx, req, { action: "proposal.declined", entityType: "proposal", entityId: p.id, reason: body.reason ?? null });
           await app.notifications.queueStaff(tx, { template: "proposal.decision", data: { reference: p.reference, version: p.version, decision: "declined", client: a.user.name, reason: body.reason, path: `/admin/proposals/${p.id}` } });
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return { ok: true as const };
       },
     }),
@@ -752,7 +752,7 @@ export function portalProposalRoutes(app: AppContext): RouteDef[] {
           await app.notifications.queueStaff(tx, { template: "proposal.clarification", data: { reference: p.reference, body: body.body, path: `/admin/proposals/${p.id}` } });
           return row;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return { id: m.id, body: m.body, createdAt: m.createdAt };
       },
     }),

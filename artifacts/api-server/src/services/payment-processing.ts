@@ -162,7 +162,7 @@ export async function processVerifiedEvent(app: AppContext, provider: PaymentPro
     result = { status: "failed", detail: (err as Error).message };
   }
   await finishWebhook(app, recorded.id, result);
-  if (result.status === "processed") void app.notifications.dispatchPending();
+  if (result.status === "processed") app.notifications.kick();
   return result;
 }
 

@@ -18,7 +18,7 @@ async function main() {
 
   // Lightweight in-process background work. For multiple instances, run `jobs` as a single scheduled task instead.
   const timers = [
-    setInterval(() => void app.notifications.dispatchPending().catch((err) => app.logger.warn({ err }, "dispatch failed")), 15_000),
+    setInterval(() => app.notifications.kick(), 15_000),
     setInterval(() => void expireStaleAttempts(app).catch((err) => app.logger.warn({ err }, "expire attempts failed")), 60 * 60_000),
   ];
 
@@ -26,6 +26,7 @@ async function main() {
     app.logger.info({ signal }, "shutting down");
     timers.forEach(clearInterval);
     http.close(async () => {
+      await app.notifications.idle();
       await app.dbHandle.close();
       process.exit(0);
     });

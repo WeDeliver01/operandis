@@ -257,6 +257,20 @@ export class NotificationService {
     }
   }
 
+  private inflight = new Set<Promise<unknown>>();
+
+  /** Fire-and-forget dispatch after a commit; errors are logged, never thrown. */
+  kick(): void {
+    const p = this.dispatchPending().catch((err) => this.logger.warn({ err }, "background email dispatch failed"));
+    this.inflight.add(p);
+    void p.finally(() => this.inflight.delete(p));
+  }
+
+  /** Wait for background dispatches (graceful shutdown / tests). */
+  async idle(): Promise<void> {
+    await Promise.allSettled([...this.inflight]);
+  }
+
   /** Send queued emails. Safe to call concurrently: each row is claimed atomically. */
   async dispatchPending(limit = 25): Promise<number> {
     const now = new Date();

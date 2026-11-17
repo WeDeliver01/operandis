@@ -112,7 +112,7 @@ export function authRoutes(app: AppContext): RouteDef[] {
             const token = await createAuthToken(tx, existing.id, "magic_link");
             await app.notifications.queue(tx, { template: "auth.magic_link", userId: existing.id, channels: ["email"], data: { path: `/auth/magic?token=${token}` } });
           });
-          void app.notifications.dispatchPending();
+          app.notifications.kick();
           status(202);
           return { status: "check_email" as const };
         }
@@ -125,7 +125,7 @@ export function authRoutes(app: AppContext): RouteDef[] {
           await audit(tx, req, { action: "auth.registered", entityType: "user", entityId: client.userId });
           return client.userId;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         await createSession(app, req, res, userId, { mfaVerified: false });
         status(201);
         return { status: "created" as const };
@@ -236,7 +236,7 @@ export function authRoutes(app: AppContext): RouteDef[] {
           const token = await createAuthToken(tx, a.user.id, "verify_email");
           await app.notifications.queue(tx, { template: "auth.verify_email", userId: a.user.id, channels: ["email"], data: { name: a.user.name, path: `/auth/verify?token=${token}` } });
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return { ok: true as const };
       },
     }),
@@ -257,7 +257,7 @@ export function authRoutes(app: AppContext): RouteDef[] {
             const token = await createAuthToken(tx, u.id, "password_reset");
             await app.notifications.queue(tx, { template: "auth.password_reset", userId: u.id, channels: ["email"], data: { path: `/auth/reset?token=${token}` } });
           });
-          void app.notifications.dispatchPending();
+          app.notifications.kick();
         }
         return { ok: true as const };
       },
@@ -301,7 +301,7 @@ export function authRoutes(app: AppContext): RouteDef[] {
             const token = await createAuthToken(tx, u.id, "magic_link");
             await app.notifications.queue(tx, { template: "auth.magic_link", userId: u.id, channels: ["email"], data: { path: `/auth/magic?token=${token}` } });
           });
-          void app.notifications.dispatchPending();
+          app.notifications.kick();
         }
         return { ok: true as const };
       },

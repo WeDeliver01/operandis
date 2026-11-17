@@ -1,4 +1,4 @@
-import rateLimit, { type Options } from "express-rate-limit";
+import rateLimit, { ipKeyGenerator, type Options } from "express-rate-limit";
 import type { RequestHandler } from "express";
 import { AppError } from "../lib/errors";
 
@@ -18,7 +18,7 @@ function limiter(windowMs: number, limit: number, name: string): RequestHandler 
     standardHeaders: "draft-7",
     legacyHeaders: false,
     skip: () => disabled,
-    keyGenerator: (req) => `${name}:${req.ip}`,
+    keyGenerator: (req) => `${name}:${ipKeyGenerator(req.ip ?? "unknown")}`,
     handler: (_req, _res, next) => next(new AppError(429, "rate_limited", "Too many requests. Please wait a moment and try again.")),
   };
   return rateLimit(opts);

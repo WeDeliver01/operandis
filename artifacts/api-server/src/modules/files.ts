@@ -103,7 +103,7 @@ export function fileRoutes(app: AppContext): RouteDef[] {
           await audit(tx, req, { action: "file.uploaded", entityType: "project_file", entityId: f.id, after: { kind, visibility, sizeBytes: file.size, mime: sniffed.mime } });
           return f;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return { id: row.id, fileName: row.fileName, mimeType: row.mimeType, sizeBytes: row.sizeBytes, kind: row.kind, visibility: row.visibility, createdAt: row.createdAt };
       },
     }),

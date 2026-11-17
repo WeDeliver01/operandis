@@ -223,7 +223,7 @@ export function adminProjectRoutes(app: AppContext): RouteDef[] {
           }
           await audit(tx, req, { action: "project.updated", entityType: "project", entityId: p.id, before: { status: p.status, managerId: p.managerId }, after: { status: u.status, managerId: u.managerId } });
           return u;
-        }).finally(() => void app.notifications.dispatchPending());
+        }).finally(() => app.notifications.kick());
       },
     }),
     defineRoute({
@@ -294,7 +294,7 @@ export function adminProjectRoutes(app: AppContext): RouteDef[] {
           }
           await audit(tx, req, { action: "milestone.updated", entityType: "milestone", entityId: m.id, before: { status: m.status }, after: { status: u.status } });
           return u;
-        }).finally(() => void app.notifications.dispatchPending());
+        }).finally(() => app.notifications.kick());
       },
     }),
     defineRoute({
@@ -340,7 +340,7 @@ export function adminProjectRoutes(app: AppContext): RouteDef[] {
           }
           return i;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return inv;
       },
     }),
@@ -366,7 +366,7 @@ export function adminProjectRoutes(app: AppContext): RouteDef[] {
           }
           return row;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return m;
       },
     }),
@@ -416,7 +416,7 @@ export function adminProjectRoutes(app: AppContext): RouteDef[] {
           }
           await audit(tx, req, { action: "change_request.updated", entityType: "change_request", entityId: c.id, before: { status: c.status }, after: { status: u.status, impactEstimateMinor: u.impactEstimateMinor } });
           return u;
-        }).finally(() => void app.notifications.dispatchPending());
+        }).finally(() => app.notifications.kick());
       },
     }),
   ];
@@ -493,7 +493,7 @@ export function portalProjectRoutes(app: AppContext): RouteDef[] {
           else await app.notifications.queueStaff(tx, { template: "message.new", data: { subject: `${p.name}`, body: body.body, path: `/admin/projects/${p.id}` } });
           return row;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return { id: m.id, body: m.body, createdAt: m.createdAt };
       },
     }),
@@ -518,7 +518,7 @@ export function portalProjectRoutes(app: AppContext): RouteDef[] {
           else await app.notifications.queueStaff(tx, notify);
           return c;
         });
-        void app.notifications.dispatchPending();
+        app.notifications.kick();
         return cr;
       },
     }),
