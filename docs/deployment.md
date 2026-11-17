@@ -1,5 +1,7 @@
 # Deployment
 
+> For the operandis.co.za VPS, follow the step-by-step guide in [vps-deployment.md](vps-deployment.md). This page covers the general model.
+
 ## Topology options
 
 **A. Single origin (recommended, simplest)** — one Node process serves `/api/*` and the built SPA (`SERVE_WEB_DIST`), behind a TLS-terminating proxy or platform router. Cookies are first-party, no CORS.

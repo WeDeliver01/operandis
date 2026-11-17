@@ -86,7 +86,8 @@ Test databases: create `operandis_test` and `operandis_e2e` owned by your DB use
 - [docs/pricing-engine.md](docs/pricing-engine.md) — estimate formula, rules, versioning
 - [docs/payments.md](docs/payments.md) — providers, webhooks, reconciliation, refunds
 - [docs/security.md](docs/security.md) — threat model, access matrix, controls
-- [docs/deployment.md](docs/deployment.md) — build, migrate, release, rollback, backups
+- [docs/vps-deployment.md](docs/vps-deployment.md) — **step-by-step VPS install for operandis.co.za (PowerShell + SSH)**
+- [docs/deployment.md](docs/deployment.md) — build, migrate, release, rollback, backups (general)
 - [docs/environment.md](docs/environment.md) — every environment variable
 - [docs/owner-decisions.md](docs/owner-decisions.md) — commercial/legal inputs and credentials still required
 - [docs/api/openapi.yaml](docs/api/openapi.yaml) — API contract (also served at `/api/v1/openapi.json`)
