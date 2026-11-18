@@ -112,24 +112,39 @@ Create your owner account — it prints a one-time link (valid 7 days) to set yo
 docker exec operandis node dist/create-admin.mjs --email you@operandis.co.za --name "Your Name"
 ```
 
-## 6. nginx + HTTPS
+## 6. HTTPS certificate + nginx
+
+Two things about web01's nginx shape this step:
+
+- It only loads site files whose names end in **`.conf`**. A file named plain `operandis.co.za` is silently ignored.
+- `certbot --nginx` (install mode) writes the certificate into the shared **`default.conf`** when it can't find our site, which broke nginx's config on the first install. So use `certonly`, which only fetches the certificate and never edits nginx files, then install our own site file, which already points at the certificate.
+
+Get the certificate (once DNS from step 1 resolves):
 
 ```bash
-cp deploy/operandis.co.za.conf /etc/nginx/sites-available/operandis.co.za
+certbot certonly --nginx -d operandis.co.za -d www.operandis.co.za
+```
+
+Install the site:
+
+```bash
+cp deploy/operandis.co.za.conf /etc/nginx/sites-available/operandis.co.za.conf
 ```
 
 ```bash
-ln -sf /etc/nginx/sites-available/operandis.co.za /etc/nginx/sites-enabled/operandis.co.za
+ln -sf /etc/nginx/sites-available/operandis.co.za.conf /etc/nginx/sites-enabled/operandis.co.za.conf
 ```
 
 ```bash
 nginx -t && systemctl reload nginx
 ```
 
-`nginx -t` must say *syntax is ok* and *test is successful* before you reload — it checks every site on web01, so a mistake here can't take AirHouse down unnoticed. Then the certificate (once DNS from step 1 resolves):
+`nginx -t` must say *syntax is ok* and *test is successful* before you reload — it checks every site on web01, so a mistake here can't take AirHouse down unnoticed.
+
+Check that automatic renewal will work (a rehearsal; it changes nothing):
 
 ```bash
-certbot --nginx -d operandis.co.za -d www.operandis.co.za --redirect
+certbot renew --cert-name operandis.co.za --dry-run
 ```
 
 Confirm end to end:
@@ -192,7 +207,9 @@ docker stop operandis && docker exec -i operandis-db pg_restore -U operandis -d 
 | Symptom | Check |
 | --- | --- |
 | `deploy.sh` stops with "Missing required settings" or a line-number error | Fix that line in `deploy/.env.production` (one `KEY=value` per line, comments on their own line) |
-| "Port 5100 is already used by another service" | Choose a free `APP_PORT` and use the same port in `/etc/nginx/sites-available/operandis.co.za` |
+| "Port 5100 is already used by another service" | Choose a free `APP_PORT` and use the same port in `/etc/nginx/sites-available/operandis.co.za.conf` |
+| `nginx -t`: *no "ssl_certificate" is defined for the "listen ... quic" directive in default.conf* | `certbot --nginx` edited `default.conf`. Undo it with `certbot rollback --checkpoints 1` (the certificate is kept), remove any `operandis.co.za` server block from `default.conf`, then follow step 6 |
+| https://operandis.co.za shows another site or a default page | The site file must end in `.conf` (step 6), and `default.conf` must not contain a `server_name … operandis.co.za` block: `grep -rn "operandis.co.za;" /etc/nginx/sites-enabled/` |
 | Container not healthy | `docker logs operandis --tail 100` — the app prints exactly which setting is invalid |
 | 502 from nginx | `./deploy/deploy.sh --status`; `proxy_pass` port must equal `APP_PORT` |
 | certbot fails | DNS not pointing at web01 yet (`Resolve-DnsName operandis.co.za`) |
