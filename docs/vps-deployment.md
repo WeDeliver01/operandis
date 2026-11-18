@@ -6,7 +6,7 @@ Operandis runs on **web01**, the same server as AirHouse and WeShip, and is depl
 Internet ─► host nginx + Let's Encrypt (operandis.co.za)
               └─► 127.0.0.1:5100 ─► "operandis" container (website + API)
                                         └─► "operandis-db" container (private PostgreSQL 16)
-/srv/operandis            git checkout (cloned with gh, like /srv/airhouse)
+/srv/operandis            git checkout (like /srv/airhouse)
 /srv/operandis/deploy/.env.production   secrets (chmod 600, never committed)
 /srv/backups/operandis    database dumps (before every deploy + nightly)
 ```
@@ -50,11 +50,13 @@ ssh root@web01
 
 ## 3. Get the code
 
-`gh` is already signed in on web01 (it's how AirHouse deploys are triggered):
+The repository is public, so no GitHub login is needed:
 
 ```bash
-gh repo clone WeDeliver01/operandis /srv/operandis
+git clone https://github.com/WeDeliver01/operandis.git /srv/operandis
 ```
+
+(If you make the repository private later, give web01 read access the same way `/srv/airhouse` pulls, e.g. a read-only deploy key, and switch the remote with `git remote set-url origin git@github.com:WeDeliver01/operandis.git`.)
 
 ```bash
 cd /srv/operandis
