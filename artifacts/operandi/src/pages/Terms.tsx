@@ -36,7 +36,7 @@ export default function Terms() {
       <p>
         All content on the site (text, design, code, logos, and product portraits) is
         the property of Operandis or its clients and is protected by South African and international
-        copyright law. The product names, logos, and screenshots of WeShip, the-bread,
+        copyright law. The product names, logos, and screenshots of WeShip, Delectables,
         Airhouse, Elegant Customise, DeNexus, and Route Planner are shown as portfolio references
         and remain the property of their respective owners.
       </p>
