@@ -1,10 +1,10 @@
 import { ProductPortraitLayout } from "@/components/ProductPortraitLayout";
-import TheBreadContent, { meta } from "@/content/products/the-bread.mdx";
+import DelectablesContent, { meta } from "@/content/products/delectables.mdx";
 
-export default function TheBreadProduct() {
+export default function DelectablesProduct() {
   return (
     <ProductPortraitLayout meta={meta}>
-      <TheBreadContent />
+      <DelectablesContent />
     </ProductPortraitLayout>
   );
 }

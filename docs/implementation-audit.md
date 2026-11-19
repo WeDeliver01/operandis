@@ -23,7 +23,7 @@ This file records **what existed before the platform expansion**, so later chang
 
 - React 19 + TypeScript + Vite 7 + Tailwind CSS 4 (`@tailwindcss/vite`), Wouter routing, TanStack Query provider (no queries used), shadcn/Radix UI primitives in `src/components/ui`, Lucide icons, Framer Motion (installed, unused in pages).
 - `vite.config.ts` **requires** `PORT` and `BASE_PATH` env vars; MDX via `@mdx-js/rollup`.
-- Routes (`src/App.tsx`): `/`, `/products`, `/services`, `/process`, `/about`, `/contact`, `/privacy`, `/terms`, `/cookies`, and six case studies `/products/{the-bread,weship,denexus,airhouse,elegant-customise,route-planner}`; catch-all NotFound.
+- Routes (`src/App.tsx`): `/`, `/products`, `/services`, `/process`, `/about`, `/contact`, `/privacy`, `/terms`, `/cookies`, and six case studies `/products/{delectables,weship,denexus,airhouse,elegant-customise,route-planner}`; catch-all NotFound.
 - Content: `src/content/products.ts` (static summary list, `featured` flag) and `src/content/products/*.mdx` (frontmatter-like `meta` export + long-form body using `<Screen>`, `<Detail>`, `<Stack>`).
 - Scheduling: Cal.com embed (`@calcom/embed-react`), link `ashleybaloyi/30-minute-consultation`.
 - Consent: `ConsentProvider` (localStorage `operandi.consent.v1`), `ConsentBanner`, `TagManager` loading GA4 / Google Ads / Meta Pixel / LinkedIn only after consent, IDs from `VITE_*` env vars.

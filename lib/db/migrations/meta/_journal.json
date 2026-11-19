@@ -15,6 +15,13 @@
       "when": 1794896257899,
       "tag": "0001_integrity_guards",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795060243502,
+      "tag": "0002_portfolio_delectables",
+      "breakpoints": true
     }
   ]
 }

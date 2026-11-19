@@ -21,7 +21,7 @@ import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import Cookies from "@/pages/Cookies";
 
-import TheBreadProduct from "@/pages/products/TheBread";
+import DelectablesProduct from "@/pages/products/Delectables";
 import WeshipProduct from "@/pages/products/Weship";
 import DenexusProduct from "@/pages/products/Denexus";
 import AirhouseProduct from "@/pages/products/Airhouse";
@@ -120,7 +120,7 @@ function ScrollToTop() {
 }
 
 const MDX_CASE_STUDIES: Record<string, React.ComponentType> = {
-  "the-bread": TheBreadProduct,
+  delectables: DelectablesProduct,
   weship: WeshipProduct,
   denexus: DenexusProduct,
   airhouse: AirhouseProduct,
@@ -157,6 +157,7 @@ function Router() {
         <Route path="/work" component={Products} />
         <Route path="/products" component={Products} />
         <Route path="/work/:slug">{(p) => <Redirect to={`/products/${p.slug}`} replace />}</Route>
+        <Route path="/products/the-bread"><Redirect to="/products/delectables" replace /></Route>
         <Route path="/products/:slug" component={CaseStudyRoute} />
         <Route path="/services" component={Services} />
         <Route path="/process" component={Process} />

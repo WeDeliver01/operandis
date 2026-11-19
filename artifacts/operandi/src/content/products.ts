@@ -10,12 +10,12 @@ export interface ProductSummary {
 
 export const products: ProductSummary[] = [
   {
-    slug: "the-bread",
-    name: "the-bread",
+    slug: "delectables",
+    name: "Delectables",
     oneLiner:
-      "Wealth platform with 40+ modules covering accounts, investments, estate, tax, and retirement for self-employed professionals and households.",
-    image: "/screens/the-bread-hero.png",
-    logo: "/logos/the-bread.png",
+      "Gauteng's bakery marketplace: order celebration cakes, breads and pastries from independent bakers, with a live-priced cake designer, group orders and next-day delivery.",
+    image: "/screens/delectables-hero.png",
+    logo: "/logos/delectables.png",
     site: "https://delectabless.co.za",
     featured: true,
   },
@@ -25,6 +25,7 @@ export const products: ProductSummary[] = [
     oneLiner:
       "Multi-tenant SaaS logistics platform for South African eCommerce: courier aggregation, billing, and shipment tracking.",
     image: "/screens/weship-hero.png",
+    logo: "/logos/weship.png",
     site: "https://app.weship.co.za",
     featured: true,
   },
